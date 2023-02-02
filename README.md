@@ -1,2 +1,8 @@
 # Team-soen341project2023
-Career Services Application Software
+
+
+Roles:
+-Daniel Bondar
+-Youssef El Aziz 
+-Alexandre Fontaine 
+-Gabriel Rodriguez 
