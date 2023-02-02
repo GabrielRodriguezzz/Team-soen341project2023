@@ -26,4 +26,5 @@ Language of programmation used:
 Plan for the next sprint:
 
 -Start coding 
+
 -Start working on the design of the website using the agile method
