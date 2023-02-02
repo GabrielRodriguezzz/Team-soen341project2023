@@ -1,7 +1,7 @@
 # Team-soen341project2023
 
 
-Roles: 
+## Roles: 
 
 -Daniel Bondar ( Will work on the Front end "Employer" )
 
@@ -12,7 +12,7 @@ Roles:
 -Gabriel Rodriguez ( Will work on the Back end "Admin" )
 
 
-Description, objectives and Core Features:
+## Description, objectives and Core Features:
 
 To create a job posting and application website.
 
@@ -21,24 +21,24 @@ To create a job posting and application website.
 -Be able to access website on any PC or phone with internet
 
 
-Employer:
+### Employer:
 
 -Create job postings
 -Review applications
 -Contact candidates.
 
-Candidate:
+### Candidate:
 
 -Upload profile/resume
 -View and apply for jobs
 
-Admin:
+### Admin:
 
 -Manage job postings
 -Edit & remove profiles
 
 
-Programming Languages used: 
+## Programming Languages used: 
 
 -Html / Css
 
@@ -49,7 +49,7 @@ Programming Languages used:
 -XML
 
 
-Plan for the next sprint:
+## Plan for the next sprint:
 
 -Start coding 
 
