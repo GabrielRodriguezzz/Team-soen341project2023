@@ -7,9 +7,9 @@ Roles:
 
 -Youssef El Aziz ( Will work on the Front end "Student/Candidate" ) 
 
--Alexandre Fontaine ( Will work on the Front end "Student/Candidate" )
+-Alexandre Fontaine, Github: zwaky ( Will work on the Front end "Student/Candidate" ) - Strength in UX design
 
--Gabriel Rodriguez ( Will work on the Bcak end "Admin" )
+-Gabriel Rodriguez ( Will work on the Back end "Admin" )
 
 
 Language of programmation used: 
