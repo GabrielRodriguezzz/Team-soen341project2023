@@ -12,7 +12,33 @@ Roles:
 -Gabriel Rodriguez ( Will work on the Back end "Admin" )
 
 
-Language of programmation used: 
+Description, objectives and Core Features:
+
+To create a job posting and application website.
+
+-Have three types of accounts: Employer, Candidate, Admin
+-Have register & login for each
+-Be able to access website on any PC or phone with internet
+
+
+Employer:
+
+-Create job postings
+-Review applications
+-Contact candidates.
+
+Candidate:
+
+-Upload profile/resume
+-View and apply for jobs
+
+Admin:
+
+-Manage job postings
+-Edit & remove profiles
+
+
+Programming Languages used: 
 
 -Html / Css
 
