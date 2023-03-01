@@ -15,7 +15,12 @@ app.use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
-
+app.get('/api/get', (req,res)=>{
+    const sqlSelect = "SELECT * FROM soen_341_database.jobs"
+    db.query(sqlSelect, (err,result)=>{
+    res.send(result)    
+    })
+}) 
 
 app.get('/', (req, res)=>{ 
 //The '/' is the url. This function gets called when people want to go to that url.
