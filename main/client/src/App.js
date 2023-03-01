@@ -46,7 +46,13 @@ function App() {
 
         <button onClick={submitReview}>Submit</button>
 
-
+        {jobList.map((val)=>{
+          return ( 
+          <div>
+            Job: {val.job_title} | Description: {val.job_description}
+          </div>
+          )
+        })}
 
       </div>
     </div>
