@@ -31,19 +31,55 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
     
 
     <div class="wrapper">
-
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      
+      <h1>Indeed 2.0</h1>      
     </div>
   </header>
-  
+
+  <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/register">Register</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
+
+
+        <button @click="handleSignOut" v-if="isLoggedIn">Sign out</button>
+  </nav>  
 
   <RouterView />
 </template>
 
+<script setup>
+import { onMounted,ref } from 'vue';
+import {getAuth, onAuthStateChanged, signOut} from "firebase/auth"
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const isLoggedIn = ref(false);
+
+let auth;
+onMounted(() =>{
+auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    isLoggedIn.value = true;
+    } else {
+      isLoggedIn.value = false;
+    }
+  });
+});
+
+
+const handleSignOut = () => {
+  signOut(auth).then(() =>{
+    router.push("/")
+  });
+
+};
+
+</script>
+
 <style>
-.wrapper {
+nav {
   display: flex;
   flex-direction: column;
 }

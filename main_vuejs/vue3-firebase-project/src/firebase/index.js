@@ -3,6 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { onUnmounted } from "vue";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyBS8rQ0ZIdgt6SY5eOIoIEGm7r5Ufc3Z-Q",
     authDomain: "vue3-firebase-auth-4b952.firebaseapp.com",
