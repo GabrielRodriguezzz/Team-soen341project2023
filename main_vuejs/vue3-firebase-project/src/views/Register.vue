@@ -16,7 +16,7 @@
         </div>
         <div class="field">
           <div class="control">
-            <button class="button is-primary" @click="register">Register</button>
+            <button class="button is-primary" v-on:click="register">Register</button>
           </div>
         </div>       
       </div>
