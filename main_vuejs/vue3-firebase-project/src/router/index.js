@@ -1,3 +1,4 @@
+import { getAuth } from 'firebase/auth';
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -6,7 +7,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: () => import('../views/HomeView.vue'),
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/about',
@@ -22,8 +26,29 @@ const router = createRouter({
       path: '/register',
       name: 'Register',
       component: () => import('../views/Register.vue')
+    },
+    {
+      path: '/addjob',
+      name: 'AddJob',
+      component: () => import('../views/Addjob.vue')
     }
   ]
 })
+
+//Code to restrict which pages can be accessed by which users
+// router.beforeEach((to, from, next) =>{
+// if(to.matched.some((record) => record.meta.requiresAuth)){
+
+//   if(getAuth().currentUser){
+//     next();
+//   } else{
+//     alert("you dont have access!");
+//     next("/about");
+//   }
+// }else{
+//   next();
+// }
+
+// });
 
 export default router

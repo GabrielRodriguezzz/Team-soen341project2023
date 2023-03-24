@@ -1,10 +1,9 @@
 <template>    
-    <h1>Sign in</h1>
+    <h2>Sign in</h2>
     <p><input type="text" placeholder="Email" v-model="email" /></p>
     <p><input type="text" placeholder="Password" v-model="password" /></p>
     <p v-if="errMsg"> {{ errMsg}}</p>
-    <p><button @click="login">Submit</button></p>
-    <p><button @click="signInWithGoogle">Sign In With Google</button></p>        
+    <p><button v-on:click="login">Submit</button></p>
   </template>
   
   <script>
@@ -23,7 +22,7 @@
         signInWithEmailAndPassword(getAuth(), email.value, password.value)
           .then((data) =>{
             console.log("Successfully signed in!");
-            router.push('/about')
+            router.push('/')
           })
           .catch((error) => {
             console.log(error.code);
@@ -44,12 +43,8 @@
                 break  
             }
           });
-      };
-  
-      const signInWithGoogle = () => {    
-      }
-  
-      return { email, password, errMsg, login, signInWithGoogle };
+      };  
+      return { email, password, errMsg, login };
     }
   };
   </script>
