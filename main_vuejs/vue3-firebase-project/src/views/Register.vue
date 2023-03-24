@@ -1,9 +1,26 @@
 <template>    
-    <h1>Create an Account</h1>
-    <p><input type="text" placeholder="Email" v-model="email" /></p>
-    <p><input type="text" placeholder="Password" v-model="password" /></p>
-    <p><button @click="register">Submit</button></p>
-    <p><button @click="signInWithGoogle">Sign In With Google</button></p>        
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Create an Account</h1>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" placeholder="Email" v-model="email" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="password" placeholder="Password" v-model="password" />
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary" @click="register">Register</button>
+          </div>
+        </div>       
+      </div>
+    </section>
   </template>
   
   <script>
@@ -28,16 +45,11 @@
             alert(error.message);
           });
       };
-    
-      const signInWithGoogle = () => {
       
-      }
-  
       return {
         email,
         password,
-        register,
-        signInWithGoogle
+        register
       }
     }
   }

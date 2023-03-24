@@ -1,10 +1,29 @@
-<template>    
-    <h2>Sign in</h2>
-    <p><input type="text" placeholder="Email" v-model="email" /></p>
-    <p><input type="text" placeholder="Password" v-model="password" /></p>
-    <p v-if="errMsg"> {{ errMsg}}</p>
-    <p><button v-on:click="login">Submit</button></p>
+<template>
+    <section class="section">
+      <div class="container">
+        <h2 class="title is-2">Sign in</h2>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Email" v-model="email">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="password" placeholder="Password" v-model="password">
+          </div>
+        </div>
+        <div class="field">
+          <p class="help is-danger" v-if="errMsg">{{ errMsg }}</p>
+        </div>
+        <div class="field">
+          <button class="button is-primary" v-on:click="login">Submit</button>
+        </div>
+      </div>
+    </section>
   </template>
+  
   
   <script>
   import { ref } from 'vue';

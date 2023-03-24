@@ -1,25 +1,37 @@
 <template>
   <header>
-    <div class="wrapper">
-      <h1>Indeed 2.0</h1>      
-    </div>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <h1 class="title">Indeed 2.0</h1>
+        </a>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <router-link to="/" class="navbar-item">Home</router-link>
+          <router-link to="/about" class="navbar-item">About</router-link>
+          <router-link v-if="isLoggedOut" to="/register" class="navbar-item">Register</router-link>
+          <router-link v-if="!isLoggedOut" to="/addjob" class="navbar-item">Edit Jobs</router-link>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <button v-on:click="handleSignOut" v-if="isLoggedOut" class="button is-light">Sign in</button>
+              <button v-on:click="handleSignOut" v-if="!isLoggedOut" class="button is-light">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   </header>
 
-  <nav>
-    <div class="links">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link v-if="isLoggedOut" to="/register">Register</router-link>
-      <router-link v-if="!isLoggedOut" to="/addjob">Edit Jobs</router-link>
+  <section class="section">
+    <div class="container">
+      <router-view />
     </div>
-
-    <div class="buttonsTop">
-      <button v-on:click="handleSignOut" v-if="isLoggedOut">Sign in</button>
-      <button v-on:click="handleSignOut" v-if="!isLoggedOut">Sign out</button>
-    </div>
-  </nav>  
-
-  <router-view />
+  </section>
 </template>
 
 <script>

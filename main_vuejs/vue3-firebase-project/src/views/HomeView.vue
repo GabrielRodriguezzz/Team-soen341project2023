@@ -1,16 +1,13 @@
-
 <template>
-  <div class="about">
-    <h1>Home Page</h1>
+  <div class="section">
+    <div class="container">
+      <h1 class="title">Home Page</h1>
+    </div>
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+<style scoped>
+.section {
+  margin-top: 2rem;
 }
 </style>
