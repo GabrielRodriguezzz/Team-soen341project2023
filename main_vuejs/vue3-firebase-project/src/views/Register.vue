@@ -6,27 +6,40 @@
     <p><button @click="signInWithGoogle">Sign In With Google</button></p>        
   </template>
   
-  <script setup>
+  <script>
   import { ref } from 'vue';
   import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
   import { useRouter } from 'vue-router';
   import router from '../router';
-  const email = ref("");
-  const password = ref("");
   
-  const register = () => {
-    createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-      .then((data) =>{
-        console.log("Successfully registered");
-        router.push('/')
-      })
-      .catch((error) => {
-        console.log(error.code);
-        alert(error.message);
-      });
-  };
+  export default {
+    setup() {
+      const email = ref("");
+      const password = ref("");
   
-  const signInWithGoogle = () => {
+      const register = () => {
+        createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+          .then((data) =>{
+            console.log("Successfully registered");
+            router.push('/')
+          })
+          .catch((error) => {
+            console.log(error.code);
+            alert(error.message);
+          });
+      };
     
+      const signInWithGoogle = () => {
+      
+      }
+  
+      return {
+        email,
+        password,
+        register,
+        signInWithGoogle
+      }
+    }
   }
   </script>
+  

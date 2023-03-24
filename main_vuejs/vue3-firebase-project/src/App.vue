@@ -41,7 +41,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
         <RouterLink to="/register">Register</RouterLink>
         <RouterLink to="/login">Login</RouterLink>
 
-
         <button @click="handleSignOut" v-if="isLoggedIn">Sign out</button>
   </nav>  
 
@@ -57,6 +56,7 @@ const router = useRouter();
 const isLoggedIn = ref(false);
 
 let auth;
+
 onMounted(() =>{
 auth = getAuth();
 onAuthStateChanged(auth, (user) => {
@@ -71,7 +71,7 @@ onAuthStateChanged(auth, (user) => {
 
 const handleSignOut = () => {
   signOut(auth).then(() =>{
-    router.push("/")
+    router.push("/login")
   });
 
 };
