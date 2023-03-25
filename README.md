@@ -56,4 +56,4 @@ To create a job posting and application website.
 
 ## Plan for the next sprint:
 
-# Sprint 4
+### Sprint 4
