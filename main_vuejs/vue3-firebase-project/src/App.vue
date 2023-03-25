@@ -36,6 +36,7 @@
 
 <script>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { db } from "@/main"
 
 
 export default {

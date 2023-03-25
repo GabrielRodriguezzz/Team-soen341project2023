@@ -15,12 +15,16 @@ const firebaseConfig = {
     appId: "1:27985959314:web:4f9ff4730cbe1c4c8d894b"
 };
 
-initializeApp(firebaseConfig);
-// const db = getFirestore(app);
-// const auth = getAuth(app);
+const firebaseDB = initializeApp(firebaseConfig);
 const app = createApp(App)
+const db = getFirestore(firebaseDB);
+// const auth = getAuth(app);
 app.use(router)
 app.mount('#app')
+
+export{
+    db
+}
 
 // export const createUser = user => {
 //     return usersCollection.add(user)
@@ -48,6 +52,3 @@ app.mount('#app')
 //     return users
 // }
 
-// export{
-//     db, auth
-// }
