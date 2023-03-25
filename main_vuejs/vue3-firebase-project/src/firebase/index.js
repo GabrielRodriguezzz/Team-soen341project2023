@@ -14,8 +14,8 @@
 // };
 
 // const firebaseApp = firebase.initializeApp(firebaseConfig);
-// const db = getFirestore(app);
-// const auth = getAuth(app);
+// const db = getFirestore(firebaseApp);
+// const auth = getAuth(firebaseApp);
 
 
 // export const createUser = user => {
