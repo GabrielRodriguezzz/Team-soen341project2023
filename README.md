@@ -45,9 +45,9 @@ To create a job posting and application website.
 
 ## Programming Languages used: 
 
--Html / Css
+- Html / Css
 
--Javsacript
+- Javsacript
 
 - JSX
 
