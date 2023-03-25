@@ -45,21 +45,26 @@
     </div>
 
     <div v-if="jobPostings.length > 0">
-      <h2 class="title is-4">Job Postings</h2>
-      <ul>
-        <li v-for="posting in jobPostings" :key="posting.id" class="job-posting">
-          <div>
-            <p><strong>{{ posting.title }}</strong></p>
-            <p>{{ posting.description }}</p>
-          </div>
-          <div class="delete-button">
-            <button class="button is-danger" v-on:click="deleteJobPosting(posting.id)">
-              Delete
-            </button>
-          </div>
-        </li>
-      </ul>
+      <h2 class="title is-4">Job Postings</h2>      
+        <div v-for="posting in jobPostings" :key="posting.id" class="card mb-1">          
+            <div class="card-content">
+              <div class="content">   
+                <div class="columns is-mobile is-vcentered">    
+                  <div class="column"> 
+                    <p class="card-header-title">{{ posting.title }}</p>            
+                    {{ posting.description }}
+                  </div>
+                    <div class="column is-5 has-text-right">
+                      <button class="button is-danger" v-on:click="deleteJobPosting(posting.id)">
+                        Delete
+                      </button>                    
+                  </div> 
+                </div>  
+              </div>
+            </div>          
+        </div>      
     </div>
+
   </div>
 </template>
 
@@ -122,15 +127,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.job-posting {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.delete-button {
-  margin-left: 10px;
-}
-</style>

@@ -13,6 +13,7 @@
           <router-link to="/about" class="navbar-item">About</router-link>
           <router-link v-if="isLoggedOut" to="/register" class="navbar-item">Register</router-link>
           <router-link v-if="!isLoggedOut" to="/addjob" class="navbar-item">Edit Jobs</router-link>
+          <router-link v-if="!isLoggedOut" to="/jobs" class="navbar-item">Browse Jobs</router-link>
         </div>
 
         <div class="navbar-end">
