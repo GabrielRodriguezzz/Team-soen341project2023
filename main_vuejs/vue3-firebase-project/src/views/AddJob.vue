@@ -1,69 +1,76 @@
 <template>
-    
+  <div>
     <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Title</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded has-icons-left">
-              <input class="input" type="text" placeholder="Job Title" v-model="title">
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-            </p>
-          </div>
+      <div class="field-label is-normal">
+        <label class="label">Title</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <p class="control is-expanded has-icons-left">
+            <input class="input" type="text" placeholder="Job Title" v-model="title">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </p>
         </div>
       </div>
-      
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Description</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <textarea class="textarea" placeholder="Enter job description" v-model="description"></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="field is-horizontal">
-        <div class="field-label">
-          <!-- Left empty for spacing -->
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <button class="button is-primary" v-on:click="saveJobPosting">
-                Post Job
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
 
-      <div v-if="jobPostings.length > 0">
-        <h2 class="title is-4">Job Postings</h2>
-        <ul>
-          <li v-for="posting in jobPostings" :key="posting.id">
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Description</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <textarea class="textarea" placeholder="Enter job description" v-model="description"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <!-- Left empty for spacing -->
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary" v-on:click="saveJobPosting">
+              Add Job
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="jobPostings.length > 0">
+      <h2 class="title is-4">Job Postings</h2>
+      <ul>
+        <li v-for="posting in jobPostings" :key="posting.id" class="job-posting">
+          <div>
             <p><strong>{{ posting.title }}</strong></p>
             <p>{{ posting.description }}</p>
-          </li>
-        </ul>
-      </div>
+          </div>
+          <div class="delete-button">
+            <button class="button is-danger" v-on:click="deleteJobPosting(posting.id)">
+              Delete
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
 
-      
-    </template>
 
-    <script>
-    import { ref } from 'vue'
-    import { db } from '@/main'
-    import { collection, addDoc, getDocs, query, where } from 'firebase/firestore'
-    import { getAuth } from "firebase/auth";
+<script>
+import { ref } from 'vue'
+import { db } from '@/main'
+import { collection, addDoc, getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
+import { getAuth } from "firebase/auth";
 
-    export default {
+export default {
   name: 'AddJob',
   data() {
     return {
@@ -81,16 +88,23 @@
 
   methods: {
     async saveJobPosting() {
-      const docRef = await addDoc(collection(db, 'job_postings'), {
-        title: this.title,
-        description: this.description,
-        author: this.auth.currentUser.email
-      })
-      console.log('Document written with ID: ', docRef.id)
-      this.title = ''
-      this.description = ''
-      this.getJobPostings()
-    },
+  if (!this.title || !this.description) {
+    alert('Please enter a title and description.')
+    return
+  }
+  
+  const docRef = await addDoc(collection(db, 'job_postings'), {
+    title: this.title,
+    description: this.description,
+    author: this.auth.currentUser.email
+  })
+  console.log('Document written with ID: ', docRef.id)
+  this.title = ''
+  this.description = ''
+  this.getJobPostings()
+},
+
+
     async getJobPostings() {
       const postings = []
       const q = query(collection(db, 'job_postings'), where('author', '==', this.auth.currentUser.email))
@@ -99,7 +113,24 @@
         postings.push({ id: doc.id, ...doc.data() })
       })
       this.jobPostings = postings
+    },
+    async deleteJobPosting(id) {
+      await deleteDoc(doc(db, "job_postings", id))
+      this.getJobPostings()
     }
   }
 }
 </script>
+
+<style scoped>
+.job-posting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.delete-button {
+  margin-left: 10px;
+}
+</style>
