@@ -72,7 +72,7 @@
 <script>
 import { ref } from 'vue'
 import { db } from '@/main'
-import { collection, addDoc, getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
+import { doc, setDoc, getDoc, updateDoc, deleteDoc, collection, addDoc, getDocs, query, where } from "firebase/firestore"
 import { getAuth } from "firebase/auth";
 
 export default {
@@ -120,8 +120,18 @@ export default {
       this.jobPostings = postings
     },
     async deleteJobPosting(id) {
-      await deleteDoc(doc(db, "job_postings", id))
-      this.getJobPostings()
+  // Delete document in 'job_postings' collection
+  await deleteDoc(doc(db, "job_postings", id))
+
+// Delete document in 'applications' collection
+const q = query(collection(db, 'applications'), where('JobPostingId', '==', id))
+const querySnapshot = await getDocs(q)
+querySnapshot.forEach(async (appDoc) => {
+  await deleteDoc(doc(db, 'applications', appDoc.id))
+})
+
+this.getJobPostings()
+
     }
   }
 }
