@@ -17,11 +17,14 @@ const firebaseConfig = {
 
 const fireapp = initializeApp(firebaseConfig);
 const db = getFirestore(fireapp);
-// const auth = getAuth(app);
 const app = createApp(App)
-// const auth = getAuth(app);
+const auth = getAuth(fireapp);
 app.use(router)
 app.mount('#app')
+
+export{
+    db, auth
+}
 
 // export const createUser = user => {
 //     return usersCollection.add(user)
@@ -49,7 +52,3 @@ app.mount('#app')
 //     return users
 // }
 
-export{
-    db
-    //, auth
-}

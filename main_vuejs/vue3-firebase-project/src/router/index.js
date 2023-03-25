@@ -1,4 +1,4 @@
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -30,25 +30,44 @@ const router = createRouter({
     {
       path: '/addjob',
       name: 'AddJob',
-      component: () => import('../views/AddJob.vue')
+      component: () => import('../views/AddJob.vue'),
+      meta: {
+        requiresAuth: true,
+      }
+
     }
   ]
 })
 
+//This ensures the page will wait until it can get the current user before loading the page
+const getCurrentUser = () =>{
+return new Promise((resolve, reject) =>{
+const removeListener = onAuthStateChanged(
+  getAuth(),
+  (user) =>{
+    removeListener();
+    resolve(user);
+  },
+  reject
+)
+
+});
+
+};
+
 //Code to restrict which pages can be accessed by which users
-// router.beforeEach((to, from, next) =>{
-// if(to.matched.some((record) => record.meta.requiresAuth)){
+router.beforeEach(async(to, from, next) =>{
+if(to.matched.some((record) => record.meta.requiresAuth)){
+  if(await getCurrentUser()){
+    next();
+  } else{
+    alert("you dont have access!");
+    next("/login");
+  }
+}else{
+  next();
+}
 
-//   if(getAuth().currentUser){
-//     next();
-//   } else{
-//     alert("you dont have access!");
-//     next("/about");
-//   }
-// }else{
-//   next();
-// }
-
-// });
+});
 
 export default router

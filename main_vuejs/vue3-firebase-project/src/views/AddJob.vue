@@ -7,7 +7,7 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded has-icons-left">
-              <input class="input" type="text" placeholder="Job Title">
+              <input class="input" type="text" placeholder="Job Title" v-model="title">
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
@@ -23,7 +23,7 @@
         <div class="field-body">
           <div class="field">
             <div class="control">
-              <textarea class="textarea" placeholder="Enter job description"></textarea>
+              <textarea class="textarea" placeholder="Enter job description" v-model="description"></textarea>
             </div>
           </div>
         </div>
@@ -36,31 +36,70 @@
         <div class="field-body">
           <div class="field">
             <div class="control">
-              <button class="button is-primary">
+              <button class="button is-primary" v-on:click="saveJobPosting">
                 Post Job
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      <div v-if="jobPostings.length > 0">
+        <h2 class="title is-4">Job Postings</h2>
+        <ul>
+          <li v-for="posting in jobPostings" :key="posting.id">
+            <p><strong>{{ posting.title }}</strong></p>
+            <p>{{ posting.description }}</p>
+          </li>
+        </ul>
+      </div>
+
+      
     </template>
 
-  <script setup>
+    <script>
+    import { ref } from 'vue'
+    import { db } from '@/main'
+    import { collection, addDoc, getDocs, query, where } from 'firebase/firestore'
+    import { getAuth } from "firebase/auth";
 
-  import {ref, onMounted} from 'vue'
-  import { db } from "@/main"
-  import { collection, addDoc, getDocs } from "firebase/firestore"; 
+    export default {
+  name: 'AddJob',
+  data() {
+    return {
+      title: '',
+      description: '',
+      jobPostings: [],
+      auth: null
+    }
+  },
+  created() {
+    // Get the user object from the promise returned by getAuth()
+    this.auth = getAuth();
+    this.getJobPostings();
+  },
 
-  const addJobPosting = async () => {
-    const docRef = await addDoc(collection(db, "job_postings"), {
-      title: "Tokyo",
-      description: "Japan",
-      author: ""
-    });
+  methods: {
+    async saveJobPosting() {
+      const docRef = await addDoc(collection(db, 'job_postings'), {
+        title: this.title,
+        description: this.description,
+        author: this.auth.currentUser.email
+      })
+      console.log('Document written with ID: ', docRef.id)
+      this.title = ''
+      this.description = ''
+      this.getJobPostings()
+    },
+    async getJobPostings() {
+      const postings = []
+      const q = query(collection(db, 'job_postings'), where('author', '==', this.auth.currentUser.email))
+      const querySnapshot = await getDocs(q)
+      querySnapshot.forEach((doc) => {
+        postings.push({ id: doc.id, ...doc.data() })
+      })
+      this.jobPostings = postings
+    }
   }
-  
-
-  onMounted(() => {
-    addJobPosting();
-  });
-  </script>
+}
+</script>
