@@ -66,5 +66,5 @@ export default {
 </script>
 
 <style>
-@import 'bulma\css\bulma.min.css';
+/* @import 'bulma\css\bulma.min.css'; */
 </style>

@@ -15,8 +15,8 @@ const firebaseConfig = {
     appId: "1:27985959314:web:4f9ff4730cbe1c4c8d894b"
 };
 
-initializeApp(firebaseConfig);
-// const db = getFirestore(app);
+const fireapp = initializeApp(firebaseConfig);
+const db = getFirestore(fireapp);
 // const auth = getAuth(app);
 const app = createApp(App)
 app.use(router)
@@ -48,6 +48,7 @@ app.mount('#app')
 //     return users
 // }
 
-// export{
-//     db, auth
-// }
+export{
+    db
+    //, auth
+}
