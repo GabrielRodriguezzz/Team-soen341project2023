@@ -1,17 +1,17 @@
 <template>  
-    <div v-if="jobPostings.length > 0">
+    <div v-if="applications.length > 0">
         <h2 class="title is-4">Job Postings</h2>      
-          <div v-for="posting in jobPostings" :key="posting.id" class="card mb-1">          
+          <div v-for="posting in applications" :key="posting.id" class="card mb-1">          
               <div class="card-content">
                 <div class="content">   
                   <div class="columns is-mobile is-vcentered">    
                     <div class="column"> 
-                      <p class="card-header-title">{{ posting.title }}</p>            
-                      {{ posting.description }}
-                    </div>
+                      <p class="card-header-title">{{  posting.title }}</p>            
+                      {{ posting.JobPostingId }}
+                      </div>                   
                       <div class="column is-5 has-text-right">
-                        <button class="button is-success" v-on:click="ApplytoJob(posting.id)">
-                          Apply
+                        <button class="button is-danger" v-on:click="DeleteApplication(posting.id)">
+                          Remove
                         </button>                    
                     </div> 
                   </div>  
@@ -26,16 +26,17 @@
   import { ref } from 'vue'
   import { db } from '@/main'
   import { collection, addDoc, getDocs, query, where, deleteDoc, doc, getDoc } from 'firebase/firestore'
-  import { getAuth } from "firebase/auth";
+  import { getAuth, reload } from "firebase/auth";
   
   export default {
     
-    name: 'AddJob',
+    name: 'ViewApplication',
     data() {
 
       return {
         title: '',
         description: '',
+        applications: [],
         jobPostings: [],
         auth: null
       }
@@ -44,12 +45,22 @@
 
       // Get the user object from the promise returned by getAuth()
       this.auth = getAuth();
+      this.getApplcations();
       this.getJobPostings();
     },
   
     methods: {  
 
-      async getJobPostings() {
+        // showTitle(Id){
+        //     foreach (job in this.jobPostings){
+        //         if(Id == job.id){
+        //             return job.title;
+        //         }
+        //     }
+
+        // },
+
+        async getJobPostings() {
         const postings = []
         const q = query(collection(db, 'job_postings')
        // , where('author', '==', this.auth.currentUser.email)
@@ -60,23 +71,27 @@
         })
         this.jobPostings = postings
       },
+        
 
-      async ApplytoJob(postingId) {
-    const currentUser = this.auth.currentUser;
-    const postingRef = doc(db, 'job_postings', postingId);
-    const postingSnapshot = await getDoc(postingRef);
-    const postingData = postingSnapshot.data();
-    
-    // Save application data in database
-    await addDoc(collection(db, 'applications'), {
-      Candidate: currentUser.email,
-      JobPostingId: postingId,
-      Employer: postingData.author,
-      DateApplied: new Date()
-    });
-    
-    // Notify user that application was submitted successfully
-    alert('Application submitted successfully!');
+      async getApplcations() {
+        const postings = []
+        const q = query(collection(db, 'applications')
+        , where('Candidate', '==', this.auth.currentUser.email)
+        )
+        const querySnapshot = await getDocs(q)
+        querySnapshot.forEach((doc) => {
+          postings.push({ id: doc.id, ...doc.data() })
+        })
+        this.applications = postings
+
+      },
+
+      async DeleteApplication(postingId) {
+
+         await deleteDoc(doc(db,"applications",postingId));
+
+        alert('Application deleted successfully!');
+        location.reload();
   }
     }
   }

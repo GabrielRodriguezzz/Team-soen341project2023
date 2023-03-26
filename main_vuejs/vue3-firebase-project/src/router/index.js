@@ -42,6 +42,22 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
       }
+    },
+    {
+      path: '/applications',
+      name: 'ViewApplications',
+      component: () => import('../views/ViewApplications.vue'),
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/editEmployer',
+      name: 'EditEmployer',
+      component: () => import('../views/EditEmployer.vue'),
+      meta: {
+        requiresAuth: true,
+      }
     }
   ]
 })

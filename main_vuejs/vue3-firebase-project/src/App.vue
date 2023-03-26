@@ -12,8 +12,10 @@
           <router-link to="/" class="navbar-item">Home</router-link>
           <router-link to="/about" class="navbar-item">About</router-link>
           <router-link v-if="isLoggedOut" to="/register" class="navbar-item">Register</router-link>
-          <router-link v-if="!isLoggedOut" to="/addjob" class="navbar-item">Edit Jobs</router-link>
-          <router-link v-if="!isLoggedOut" to="/jobs" class="navbar-item">Browse Jobs</router-link>
+          <router-link v-if="isEmployer" to="/addjob" class="navbar-item">Post Jobs</router-link>
+          <router-link v-if="isCandidate" to="/jobs" class="navbar-item">Browse Jobs</router-link>
+          <router-link v-if="isCandidate" to="/applications" class="navbar-item">View Applications</router-link>
+          <router-link v-if="isEmployer" to="/editEmployer" class="navbar-item">Edit Employer</router-link>
         </div>
 
         <div class="navbar-end">
@@ -31,6 +33,7 @@
   <section class="section">
     <div class="container">
       <router-view />
+      
     </div>
   </section>
 </template>
@@ -38,28 +41,46 @@
 <script>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { db } from "@/main"
-
+import { getCountFromServer, query,where,documentId , collection, doc, getDoc} from 'firebase/firestore'
 
 export default {
   data() {
     return {
       isLoggedOut: false,
+      isCandidate: false,
+      isEmployer: false
     };
   },
   mounted() {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (!user) {
         this.isLoggedOut = true;
       } else {
         this.isLoggedOut = false;
+        if( await(await getCountFromServer(query(collection(db, "employer_profiles"),where(documentId(),'==',user.email)))).data().count==1){
+          this.isEmployer = true;
+        }
+        else{
+          this.isEmployer = false;
+        }
+        if( await(await getCountFromServer(query(collection(db, "candidate_profiles"),where(documentId(),'==',user.email)))).data().count==1){
+          this.isCandidate = true;
+        }
+        else{
+          this.isCandidate = false;
+        }
+        
       }
     });
+
   },
   methods: {
     handleSignOut() {
       const auth = getAuth();
       signOut(auth).then(() => {
+        this.isCandidate = false;
+        this.isEmployer = false;
         this.$router.push("/login");
       });
     },

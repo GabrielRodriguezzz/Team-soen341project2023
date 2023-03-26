@@ -32,7 +32,7 @@
   import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
   import { useRouter } from 'vue-router';
   import router from '../router';
-  import { collection, addDoc, getFirestore  } from "firebase/firestore"; 
+  import { doc, setDoc,collection, addDoc, getFirestore  } from "firebase/firestore"; 
   import { db } from '@/main'
   
   
@@ -47,9 +47,8 @@
         createUserWithEmailAndPassword(getAuth(), email.value, password.value)
           .then( async (data) =>{
             console.log("Successfully registered");
-            await addDoc(collection(db, "employer_profiles"), {
+            await setDoc(doc(db, "employer_profiles",email.value ), {
             company_name: "",
-            email: email.value,
             first_name: "",
             last_name: ""
             });
@@ -65,8 +64,7 @@
         createUserWithEmailAndPassword(getAuth(), email.value, password.value)
           .then( async (data) =>{
             console.log("Successfully registered");
-            addDoc(collection(db, "candidate_profiles"), {
-            email: email.value,
+            await setDoc(doc(db, "candidate_profiles",email.value), {
             first_name: "",
             last_name: "",
             resume: ""
