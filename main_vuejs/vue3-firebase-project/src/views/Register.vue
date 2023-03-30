@@ -20,7 +20,7 @@
             <div>
 
             </div>
-            <button class="button is-primary" v-on:click="registerCAN">Register as Candidate</button>
+            <button class="button is-primary" v-on:click="registerCAN " style="margin-top: 10px;">Register as Candidate</button>
           </div>
         </div>       
       </div>
