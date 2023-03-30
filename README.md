@@ -3,13 +3,9 @@
 
 ## Roles: 
 
--Daniel Bondar ( Will work on the Front end "Employer" )
+-Alexandre Fontaine, Github: zwaky (Will work on Front and Back end)
 
--Youssef El Aziz ( Will work on the Front end "Student/Candidate" ) 
-
--Alexandre Fontaine, Github: zwaky ( Will work on the Front end "Student/Candidate" ) - Strength in UX design
-
--Gabriel Rodriguez ( Will work on the Back end "Admin" )
+-Gabriel Rodriguez (Will work on Front and Back end)
 
 
 ## Description, objectives and Core Features:
@@ -18,6 +14,8 @@ To create a job posting and application website.
 
 -Have three types of accounts: Employer, Candidate, Admin
 -Have register & login for each
+-Be able to post jobs as an Employer
+-Be able to apply for available jobs as a Candidate
 -Be able to access website on any PC or phone with internet
 
 
@@ -37,24 +35,25 @@ To create a job posting and application website.
 -Manage job postings
 -Edit & remove profiles
 
+## Frameworks used: 
+
+- Vue.js (Front end)
+
+- Firebase (Back end)
+
+- Node.js (Server)
 
 ## Programming Languages used: 
 
--Laravel
+- Html / Css
 
--MySQL
+- Javsacript
 
--Html / Css
+- JSX
 
--Javsacript
 
--Php
-
--XML
 
 
 ## Plan for the next sprint:
 
--Start coding 
-
--Start working on the design of the website using the agile method
+### Sprint 4
