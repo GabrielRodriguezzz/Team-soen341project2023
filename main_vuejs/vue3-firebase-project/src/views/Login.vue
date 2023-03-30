@@ -41,6 +41,7 @@
         signInWithEmailAndPassword(getAuth(), email.value, password.value)
           .then((data) =>{
             console.log("Successfully signed in!");
+            
             router.push('/')
           })
           .catch((error) => {

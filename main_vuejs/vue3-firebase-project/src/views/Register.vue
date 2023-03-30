@@ -16,7 +16,11 @@
         </div>
         <div class="field">
           <div class="control">
-            <button class="button is-primary" v-on:click="register">Register</button>
+            <button class="button is-primary" v-on:click="registerEMP">Register as Employer</button>
+            <div>
+
+            </div>
+            <button class="button is-primary" v-on:click="registerCAN">Register as Candidate</button>
           </div>
         </div>       
       </div>
@@ -28,16 +32,43 @@
   import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
   import { useRouter } from 'vue-router';
   import router from '../router';
+  import { doc, setDoc,collection, addDoc, getFirestore  } from "firebase/firestore"; 
+  import { db } from '@/main'
+  
   
   export default {
     setup() {
       const email = ref("");
       const password = ref("");
+
   
-      const register = () => {
+      const registerEMP = async () => {
+        
         createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-          .then((data) =>{
+          .then( async (data) =>{
             console.log("Successfully registered");
+            await setDoc(doc(db, "employer_profiles",email.value ), {
+            company_name: "",
+            first_name: "",
+            last_name: ""
+            });
+            router.push('/')
+          })
+          .catch((error) => {
+            console.log(error.code);
+            alert(error.message);
+          });
+
+      };
+      const registerCAN = async () => {
+        createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+          .then( async (data) =>{
+            console.log("Successfully registered");
+            await setDoc(doc(db, "candidate_profiles",email.value), {
+            first_name: "",
+            last_name: "",
+            resume: ""
+            });
             router.push('/')
           })
           .catch((error) => {
@@ -49,7 +80,8 @@
       return {
         email,
         password,
-        register
+        registerEMP,
+        registerCAN
       }
     }
   }
