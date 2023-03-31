@@ -36,14 +36,30 @@ const router = createRouter({
       }
     },
     {
-        path: '/editEmployer',
-        name: 'EditEmployer',
-        component: () => import('../views/EditEmployer.vue'),
-        meta: {
-          requiresAuth: true,
-        }
-      }    
-]
+      path: '/jobs',
+      name: 'JobPostings',
+      component: () => import('../views/JobPostings.vue'),
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/applications',
+      name: 'ViewApplications',
+      component: () => import('../views/ViewApplications.vue'),
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/editEmployer',
+      name: 'EditEmployer',
+      component: () => import('../views/EditEmployer.vue'),
+      meta: {
+        requiresAuth: true,
+      }
+    }
+  ]
 })
 
 //This ensures the page will wait until it can get the current user before loading the page
