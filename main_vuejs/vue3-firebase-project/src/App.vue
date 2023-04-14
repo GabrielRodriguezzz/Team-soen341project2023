@@ -16,6 +16,7 @@
             <router-link v-if="isEmployer" to="/addjob" class="navbar-item">Post Jobs</router-link>
             <router-link v-if="isCandidate" to="/applications" class="navbar-item">View Applications</router-link>
             <router-link v-if="isEmployer" to="/editEmployer" class="navbar-item">Edit Employer</router-link>
+            <router-link v-if="isEmployer" to="/applicationsEmployer" class="navbar-item">View Applications</router-link>
           </div>
   
           <div class="navbar-end">

@@ -5,8 +5,11 @@
               <div class="card-content">
                 <div class="content">   
                   <div class="columns is-mobile is-vcentered">    
-                    <div class="column"> 
-                      <p class="card-header-title">{{  posting.Title }}</p>            
+                    <div class="column">
+                        <div>
+                        {{ posting.Candidate }}
+                    </div> 
+                      <p class="card-header-title">{{  posting.Title }}</p> 
                       {{ posting.Description }}
                       </div>                   
                       <div class="column is-5 has-text-right">
@@ -29,7 +32,7 @@
   <script>
   import { ref } from 'vue'
   import { db } from '@/main'
-  import { collection, addDoc, getDocs, query, where, deleteDoc, doc, getDoc } from 'firebase/firestore'
+  import { updateDoc, collection, addDoc, getDocs, query, where, deleteDoc, doc, getDoc } from 'firebase/firestore'
   import { getAuth, reload } from "firebase/auth";
   
   export default {
@@ -92,22 +95,22 @@
 
       async DenyApplication(postingId) {
 
-        const docRef = doc(db, "employer_profiles", postingId);
+        const docRef = doc(db, "applications", postingId);
             await updateDoc(docRef,{
-          "Status": Denied
+                "Status": 'Denied'
         })
 
         alert('Application denied successfully!');
         location.reload();
   },
-        async AprroveApplication(postingId) {
+        async ApproveApplication(postingId) {
 
-            const docRef = doc(db, "employer_profiles", postingId);
+            const docRef = doc(db, "applications", postingId);
             await updateDoc(docRef,{
-          "Status": Approved
+          "Status": 'Approved'
         })
 
-        alert('Application approved successfully!');
+        alert('Application approved successfully! '+postingId);
         location.reload();
         }
     }
