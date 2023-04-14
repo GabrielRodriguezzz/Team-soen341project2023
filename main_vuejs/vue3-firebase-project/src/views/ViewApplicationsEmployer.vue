@@ -1,6 +1,6 @@
 <template>  
     <div v-if="applications.length > 0">
-        <h2 class="title is-4">Job Postings</h2>      
+        <h2 class="title is-4">Applications</h2>      
           <div v-for="posting in applications" :key="posting.id" class="card mb-1">          
               <div class="card-content">
                 <div class="content">   
@@ -9,11 +9,14 @@
                       <p class="card-header-title">{{  posting.Title }}</p>            
                       {{ posting.Description }}
                       </div>                   
-                      <div class="column is-5 has-text-right">                       
-                          {{ posting.Status }}                                         
-                        <button v-if="posting.Status=='Pending'" class="button is-danger" v-on:click="DeleteApplication(posting.id)">
-                          Remove
-                        </button>                    
+                      <div class="column is-5 has-text-right">
+                        {{ posting.Status }}
+                        <button v-if="posting.Status=='Pending'" class="button is-danger" v-on:click="DenyApplication(posting.id)">
+                          Deny
+                        </button> 
+                        <button v-if="posting.Status=='Pending'" class="button is-success" v-on:click="ApproveApplication(posting.id)">
+                          Approve
+                        </button>                   
                     </div> 
                   </div>  
                 </div>
@@ -77,7 +80,7 @@
       async getApplcations() {
         const postings = []
         const q = query(collection(db, 'applications')
-        , where('Candidate', '==', this.auth.currentUser.email)
+        , where('Employer', '==', this.auth.currentUser.email)
         )
         const querySnapshot = await getDocs(q)
         querySnapshot.forEach((doc) => {
@@ -87,13 +90,26 @@
 
       },
 
-      async DeleteApplication(postingId) {
+      async DenyApplication(postingId) {
 
-         await deleteDoc(doc(db,"applications",postingId));
+        const docRef = doc(db, "employer_profiles", postingId);
+            await updateDoc(docRef,{
+          "Status": Denied
+        })
 
-        alert('Application deleted successfully!');
+        alert('Application denied successfully!');
         location.reload();
-  }
+  },
+        async AprroveApplication(postingId) {
+
+            const docRef = doc(db, "employer_profiles", postingId);
+            await updateDoc(docRef,{
+          "Status": Approved
+        })
+
+        alert('Application approved successfully!');
+        location.reload();
+        }
     }
   }
   </script>
