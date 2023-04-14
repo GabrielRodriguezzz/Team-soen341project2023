@@ -60,6 +60,14 @@ const router = createRouter({
       }
     },
     {
+      path: '/editCandidate',
+      name: 'EditCandidate',
+      component: () => import('../views/EditCandidate.vue'),
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
       path: '/applicationsEmployer',
       name: 'ViewApplicationsEmployer',
       component: () => import('../views/ViewApplicationsEmployer.vue'),
