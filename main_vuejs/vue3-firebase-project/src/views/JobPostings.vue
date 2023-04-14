@@ -72,7 +72,10 @@ export default {
     Candidate: currentUser.email,
     JobPostingId: postingId,
     Employer: postingData.author,
-    DateApplied: new Date()
+    DateApplied: new Date(),
+    Description: postingData.description,
+    Title: postingData.title,
+    Status: 'Pending'
   });
   
   // Notify user that application was submitted successfully

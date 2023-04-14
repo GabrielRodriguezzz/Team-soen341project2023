@@ -6,11 +6,12 @@
                 <div class="content">   
                   <div class="columns is-mobile is-vcentered">    
                     <div class="column"> 
-                      <p class="card-header-title">{{  posting.title }}</p>            
-                      {{ posting.JobPostingId }}
+                      <p class="card-header-title">{{  posting.Title }}</p>            
+                      {{ posting.Description }}
                       </div>                   
                       <div class="column is-5 has-text-right">
-                        <button class="button is-danger" v-on:click="DeleteApplication(posting.id)">
+                        {{ posting.Status }}
+                        <button v-if="posting.Status=='Pending'" class="button is-danger" v-on:click="DeleteApplication(posting.id)">
                           Remove
                         </button>                    
                     </div> 
