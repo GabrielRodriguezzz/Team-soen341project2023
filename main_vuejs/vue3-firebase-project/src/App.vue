@@ -11,7 +11,7 @@
           <div class="navbar-start">
             <router-link to="/" class="navbar-item">Home</router-link>
             <router-link to="/about" class="navbar-item">About</router-link>
-            <router-link to="/jobs" class="navbar-item">Browse Jobs</router-link>
+            <router-link v-if="isCandidate" to="/jobs" class="navbar-item">Browse Jobs</router-link>
             <router-link v-if="isLoggedOut" to="/register" class="navbar-item">Register</router-link>
             <router-link v-if="isEmployer" to="/addjob" class="navbar-item">Post Jobs</router-link>
             <router-link v-if="isCandidate" to="/applications" class="navbar-item">View Applications</router-link>
