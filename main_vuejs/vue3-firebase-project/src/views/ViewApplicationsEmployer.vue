@@ -7,8 +7,11 @@
                   <div class="columns is-mobile is-vcentered">    
                     <div class="column">
                         <div>
-                        {{ posting.Candidate }}
-                    </div> 
+                            Candidate email: {{ posting.Candidate }}
+                        </div> 
+                        <div>
+                           Resume: {{ posting.Resume }}
+                        </div>
                       <p class="card-header-title">{{  posting.Title }}</p> 
                       {{ posting.Description }}
                       </div>                   

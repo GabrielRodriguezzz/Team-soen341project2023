@@ -18,7 +18,7 @@
         <div class="field">
           <label class="label">Resume</label>
           <div class="control">
-            <input class="input" type="text" v-bind:placeholder="presume" v-model="resume">
+            <input class="input" type="textarea" v-bind:placeholder="presume" v-model="resume">
           </div>
         </div>
         

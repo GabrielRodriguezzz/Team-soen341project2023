@@ -66,6 +66,11 @@ export default {
   const postingRef = doc(db, 'job_postings', postingId);
   const postingSnapshot = await getDoc(postingRef);
   const postingData = postingSnapshot.data();
+
+  const userRef = doc(db, 'candidate_profiles', this.auth.currentUser.email);
+  const userSnapshot = await getDoc(userRef);
+  const userData = userSnapshot.data();
+  console.log(userData);
   
   // Save application data in database
   await addDoc(collection(db, 'applications'), {
@@ -75,7 +80,8 @@ export default {
     DateApplied: new Date(),
     Description: postingData.description,
     Title: postingData.title,
-    Status: 'Pending'
+    Status: 'Pending',
+    Resume: userData.resume
   });
   
   // Notify user that application was submitted successfully
